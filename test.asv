@@ -1,0 +1,38 @@
+%file:test.m
+%用于分别单个测试每个模块的功能
+% MSB=2;
+% origin=zeros(6,6);
+% origin=[76  ,  11,   128,   192,   159,    22;
+%     20,   198,   229,   135,    27,   207;
+%     86,    74,   189,     2,    12,   167;
+%    154 ,  134 ,  185 ,  178 ,  196 ,   72;
+%    177  , 141  , 100  ,  15  , 196  ,  84;
+%    155   ,189   , 26   , 32   ,138   ,121]
+% blocksize = 6;
+% x = 1;
+% y=1;
+% count=3;
+% origin=Embedding( origin, blocksize, x, y, MSB, count);
+MAP=[1,1,1,1,0;0,1,0,1,0;1,1,1,1,1;1,0,1,1,1;1,1,1,1,1;1,1,0,1,1]
+l = [];
+MAP=MAP'
+MAP=MAP(:)
+MAP=MAP' %to change the MAP to unidimensional matrix
+[~,len] = size(MAP);
+n = 1;
+i = 1;
+tem = [1,1,1,1,1];
+while i <= len
+    if (i+4) <= len && i<
+            L(n:n+4) = MAP(i:i+4);
+            L(n+5) = 0;
+            n = n+6;
+            i = i+5;
+    else
+        L(n) = MAP(i);
+        n = n+1;
+        i = i+1;
+    end
+end
+L(n:n+7) = [0,1,1,1,1,1,1,0];
+L

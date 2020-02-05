@@ -1,0 +1,19 @@
+%file:Get.m
+%取8 bit的像素前MSB位,并将其放入已收集到的比特集合中
+function bits = Get( bits, pixel, MSB )
+b = dec2bin(pixel);
+[~,n] = size(b);
+[~,len] = size(bits);
+
+if n == 8
+    b = b(1:MSB);
+    bits(len+1:len+MSB) = b(1:MSB)-'0';
+end
+
+if n < (8-MSB)
+    bits(len+1:len+MSB) = 0;
+end
+
+if 8 > n > (8-MSB)
+    
+end

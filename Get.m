@@ -1,5 +1,5 @@
 %file:Get.m
-%取8 bit的像素前MSB位,并将其放入已收集到的比特集合中
+%get the MSB of pixel and store it into bits
 function bits = Get( bits, pixel, MSB )
 b = dec2bin(pixel);
 [~,n] = size(b);

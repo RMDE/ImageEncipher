@@ -1,5 +1,5 @@
 %file:test.m
-%用于分别单个测试每个模块的功能
+%to test every function
 MSB=2;
 origin=zeros(6,6);
 origin=[76  ,  11,   128,   192,   159,    22;

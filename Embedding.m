@@ -1,10 +1,8 @@
 %file:Embedding.m
-%��ÿһ�������ϢǶ�����ڳ�����ռ�
-%origin��ԭͼ�� blocksize�����С��  x: ����ʼ����������� 
-%y: ����ʼ���������, MSB: ������������Ҫ�����λ��, count: EN1�и���
-%������ͼ����(x,y) - (x+blocksize,y+blocksize)��������в���
-%�������һȦ������Ϊ�����������棨blocksize-1��*��blocksize-1����������Ϊ���ò����չ��������Ƕ�������
-%��������ÿ�����ص����MSBλ��ΪǶ�����ݽ��б���
+%origin: the original image   blocksize: the size of block
+%x,y: the start location of block
+%MSB: the number of every bit in adjustment area used for adjustment
+%count: the max number of elements in EN1
 function SubImage = Embedding( origin, blocksize, x, y, MSB, count)
 
 SubImage=origin;

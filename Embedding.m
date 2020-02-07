@@ -56,17 +56,21 @@ for i = x+1 : 1 : x+blocksize-2
             else
                 SORT(i,j) = 2;
                 t = Dec2bin(h);
-                num=num+1;
-                [~,len]=size(t);
-                LSB(num) = t(len)-'0';
+                if h~=1 && h~=-2
+                    num=num+1;
+                    [~,len]=size(t);
+                    LSB(num) = t(len)-'0';
+                end
             end
             spaceroom = spaceroom+1;
         elseif abs(2*floor(h/2)+1) < min
             SORT(i,j) = 2;
             t = Dec2bin(h);
-            num=num+1;
-            [~,len]=size(t);
-            LSB(num) = t(len)-'0';
+            if h~=1 && h~=-2 %as such value could br determined by location map
+                num=num+1;
+                [~,len]=size(t);
+                LSB(num) = t(len)-'0';
+            end
             spaceroom = spaceroom+1;
         end
     end

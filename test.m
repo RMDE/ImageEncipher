@@ -13,3 +13,4 @@ x = 1;
 y=1;
 count=6;
 origin=Embedding( origin, blocksize, x, y, MSB, count)
+origin=Extraction( origin , blocksize,x,y, MSB)

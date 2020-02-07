@@ -5,7 +5,7 @@
 %count: the max number of elements in EN1
 function embed_image = SaveSpace( origin , blocksize , MSB , count)
 
-embed_iamge = origin;
+embed_image = origin;
 [M,N] = size(origin);
 m = M/blocksize;
 n = N/blocksize;

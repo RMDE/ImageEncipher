@@ -40,7 +40,7 @@ for i = x+1 : 1 : x+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
         h = origin(i,j)-origin(i,j+1);
         min = 2*(255-l);
-        b = 2*l-1;
+        b = 2*l+1;
         if( b < min )
             min = b;
         end

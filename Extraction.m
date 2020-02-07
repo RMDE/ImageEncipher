@@ -80,7 +80,6 @@ for i = x+1: 1 : x+blocksize-2
                 infono = infono+1;
             end
         end
-        
     end
 end
             

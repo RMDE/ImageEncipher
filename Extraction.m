@@ -42,6 +42,7 @@ while flag == 0
    if data(index:index+7) == temp
       flag = index+7; %the end of location-map + 01111110 
    end
+   index = index+1;
 end
 
 %decoding the location-map to original construction
@@ -80,10 +81,13 @@ for i = x+1: 1 : x+blocksize-2
                 infono = infono+1;
             end
         end
+        ExImage(i,j) = l+floor((h+1)/2);
+        ExImage(i,j+1) = l-floor(h/2);
     end
 end
             
             
-data     
+data 
+ExImage
 
 end

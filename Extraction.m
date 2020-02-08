@@ -33,6 +33,7 @@ for i = x+1 : 1 : x+blocksize-2
     end
 end
 
+data=[1,0,1 ,0 , 1 ,1,1,0,0    , 1  ,   1 ,    1   ,  1   ,  1  ,   1   ,  0   ,  0    , 0  ,   1   ,  0,     1 ,    0 ,    0    , 0  ,   1    , 1,0  ,   1  ,   0    , 1 ,    0,     0 ,    0   ,  1  ,   1   ,  1 ,    0 ,    0   ,  1  ,   0  ,   1   ,  0   ,  1   ,  0   ,  0 ,    1   ,  0  ,   1   ,  1    , 1   ,  0    , 1,0   ,  0    , 0   ,  0  ,   0   ,  1   ,  0];
 %dipose the embedded message 'data'
 %the construction of data:location-map 01111110 LSB-of-EN2&CN MSB 01111...1
 index = 1;
@@ -47,7 +48,7 @@ end
 
 %decoding the location-map to original construction
 MAP = [];
-temp = [1,1,1,1,1,0]
+temp = [1,1,1,1,1,0];
 i = 1;%index in data
 no = 1;%index in MAP
 while i <= (flag-8)
@@ -69,12 +70,13 @@ for i = x+1: 1 : x+blocksize-2
     for j = y+1: 2 : y+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
         hh = origin(i,j)-origin(i,j+1);
-        if MAP((i-1)*blocksize+j)==1
+        t = (i-x-1)*((blocksize-2)/2)+(j-y+1)/2;
+        if MAP(t)==1
             h = floor(hh/2);
         else
-            if 0 <= hh <= 1
+            if 0<=hh && hh<=1
                 h = 1;
-            elseif -2 <= hh <= -1
+            elseif -2<=hh && hh<=-1
                 h = -2;
             else
                 h = 2*floor(hh/2)+data(infono);
@@ -87,7 +89,5 @@ for i = x+1: 1 : x+blocksize-2
 end
             
             
-data 
-ExImage
 
 end

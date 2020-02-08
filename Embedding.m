@@ -75,7 +75,6 @@ for i = x+1 : 1 : x+blocksize-2
         end
     end
 end
-
 %encoding the MAP into L (using 01111110 as the ending of the data)
 %when meet five and more than five '1' ,use 0 in the ending of '11111'
 L = [];

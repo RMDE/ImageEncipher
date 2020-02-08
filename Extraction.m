@@ -87,7 +87,24 @@ for i = x+1: 1 : x+blocksize-2
         ExImage(i,j+1) = l-floor(h/2);
     end
 end
-            
-            
+ 
+%%recover the MSB of pixel in adjustment area
+%the start of MSB index in data is infono now
+for i = x : x+blocksize-1
+    ExImage(i,y) = Put(origin(i,y),data,infono,MSB);
+    infono = infono+MSB;
+end
+for i = x : x+blocksize-1
+    ExImage(i,y+blocksize-1) = Put(origin(i,y+blocksize-1),data,infono,MSB);
+    infono = infono+MSB;
+end
+for j = y+1 : y+blocksize-2
+    ExImage(x,j) = Put(origin(x,j),data,infono,MSB);
+    infono = infono+MSB;
+end
+for j = y+1 : y+blocksize-2
+    ExImage(x+blocksize-1,j) = Put(origin(x+blocksize-1,j),data,infono,MSB);
+    infono = infono+MSB;
+end
 
 end

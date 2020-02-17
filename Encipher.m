@@ -8,7 +8,7 @@ function EnImage = Encipher( origin , key )
 [M,N] = size(origin);
 rng('default');
 rng(key);
-stream = randi(255,M,N);
+stream = uint8(randi(256,M,N)-1);
 EnImage = bitxor(origin,stream);
 
 end

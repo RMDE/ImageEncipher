@@ -13,7 +13,7 @@ for i = 1 : m
     for j = 1 : n
         x = (i-1)*blocksize+1;
         y = (j-1)*blocksize+1;
-        ReImage = Extration(ReImage,blocksize,MSB);
+        ReImage = Extraction(ReImage,blocksize,MSB);
     end
 end
 

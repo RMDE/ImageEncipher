@@ -5,6 +5,10 @@
 %using  key expansion function
 function EnImage = Encipher( origin , key )
 
-EnImage = bitxor(origin,key);
+[M,N] = size(origin);
+rng('default');
+rng(key);
+stream = randi(255,M,N);
+EnImage = bitxor(origin,stream);
 
 end

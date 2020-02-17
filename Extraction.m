@@ -33,7 +33,6 @@ for i = x+1 : 1 : x+blocksize-2
     end
 end
 
-data=[1,0,1 ,0 , 1 ,1,1,0,0    , 1  ,   1 ,    1   ,  1   ,  1  ,   1   ,  0   ,  0    , 0  ,   1   ,  0,     1 ,    0 ,    0    , 0  ,   1    , 1,0  ,   1  ,   0    , 1 ,    0,     0 ,    0   ,  1  ,   1   ,  1 ,    0 ,    0   ,  1  ,   0  ,   1   ,  0   ,  1   ,  0   ,  0 ,    1   ,  0  ,   1   ,  1    , 1   ,  0    , 1,0   ,  0    , 0   ,  0  ,   0   ,  1   ,  0];
 %dipose the embedded message 'data'
 %the construction of data:location-map 01111110 LSB-of-EN2&CN MSB 01111...1
 index = 1;

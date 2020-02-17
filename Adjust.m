@@ -8,6 +8,7 @@ function AjImage = Adjust(origin,blocksize,x,y,MSB,value)
 
 %first: calculate the low (8-MSB) bit of all pixel --> sum 
 %store the all adjustment area location in locationx and locationy
+AjImage = origin;
 locationx = [];
 locationy = [];
 len = 1;

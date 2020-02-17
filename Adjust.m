@@ -24,14 +24,15 @@ len = len+blocksize-2;
 locationx(len:len+blocksize-3) = x+blocksize-1;
 locationy(len:len+blocksize-3) = y+1:y+blocksize-2;
 len = len+blocksize-3;
-sum = 0;
+sub = origin(x+1:x+blocksize-2,y+1:y+blocksize-2);
+Sum = sum(sub(:));
 for i = 1 : len
-    sum = sum+Calcu(origin(locationx(i),locationy(i)),MSB);
+    Sum = Sum+Calcu(origin(locationx(i),locationy(i)),MSB);
 end
 
 %second: calculate the difference between 'current' and blocksize*blocksize*value
 number = Generate(MSB);
-difference = blocksize*blocksize*value-sum; %generally the former must bigger than the later
+difference = blocksize*blocksize*value-Sum; %generally the former must bigger than the later
 
 %third: search to find the perfect result
 if difference<number(1)
@@ -43,8 +44,8 @@ end
 num = zeros(count);%store the number of every value in number
 if count == 1
     for x = 1 : len
-        sum = sum+number(1)*x;
-        difference = abs(sum-blocksize*blocksize*value);
+        Sum = Sum+number(1);
+        difference = abs(Sum-blocksize*blocksize*value);
         if difference < number(1)
             num(1) = x;
             break;
@@ -59,8 +60,8 @@ if count == 1
 elseif count == 2
     for x = 0 : len
         for y = 0 : len-x
-            sum = sum+number(1)*x+number(2)*y;
-            difference = abs(sum-blocksize*blocksize*value);
+            Sum = Sum+number(1)*x+number(2)*y;
+            difference = abs(Sum-blocksize*blocksize*value);
             if difference < number(1)
                 num(1) = x;
                 num(2) = y;
@@ -85,8 +86,8 @@ elseif count == 3
                     for q = 0 : len-x-y-z-p
                         for r = 0 : len-x-y-z-p-q
                             for n = 0 : len-x-y-z-p-q-r
-                                sum = sum+number(1)*x+number(2)*y+number(3)*z+number(4)*p+number(5)*q+number(6)*r+number(7)*n;
-                                difference = abs(sum-blocksize*blocksize*value);
+                                Sum = Sum+number(1)*x+number(2)*y+number(3)*z+number(4)*p+number(5)*q+number(6)*r+number(7)*n;
+                                difference = abs(Sum-blocksize*blocksize*value);
                                 if difference < number(1)
                                     num(1) = x;
                                     num(2) = y;

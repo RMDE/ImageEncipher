@@ -117,6 +117,7 @@ data(len1+len2+1:len1+len2+len3) = bits(1:len3);
 if spaceroom > datalen %have extra spare space
     data(datalen+1:spaceroom) = 1;
 end
+data
 no=1; %means the index of data to embed
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2

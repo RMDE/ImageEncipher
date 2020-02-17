@@ -15,7 +15,7 @@ SORT = zeros(blocksize,blocksize);%to store the kind of pixel CH:1, NC:0
 data = [];%store the embedded message
 no = 0; %means the number of elements in data
 for i = x+1 : 1 : x+blocksize-2
-    for j = y+1 : 2 :y+blocksize-2
+    for j = y+1 : 2 : y+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
         h = origin(i,j)-origin(i,j+1);
         min = 2*(255-l);
@@ -38,6 +38,7 @@ end
 index = 1;
 flag = 0;
 temp = [0,1,1,1,1,1,1,0];
+data
 while flag == 0
    if data(index:index+7) == temp
       flag = index+7; %the end of location-map + 01111110 

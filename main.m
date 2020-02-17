@@ -20,8 +20,8 @@ for i = 1 : m
         t = t+1;
     end
 end
-embed_image = SaveSpace( origin , blocksize , MSB , count)
-AjImage = Adjustment( embed_image , blocksize , values , MSB)
-EnImage = Encipher( AjImage , key ) %encipher
-DeImage = Encipher( EnImage , key ) %decipher
-ReImage = Recovery( DeImage , blocksize , MSB ) 
+embed_image = SaveSpace( origin , blocksize , MSB , count);
+AjImage = Adjustment( embed_image , blocksize , values , MSB);
+EnImage = Encipher( AjImage , key ); %encipher
+DeImage = Encipher( EnImage , key ); %decipher
+ReImage = Recovery( DeImage , blocksize , MSB );

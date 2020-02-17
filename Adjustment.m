@@ -5,8 +5,8 @@
 %MSB: the number of every bit in adjustment area used for adjustment
 function AjImage = Adjustment( origin , blocksize , value , MSB)
 
-A = origin;
-[M,N] = size(origin);
+AjImage = origin;
+[M,N] = size(AjImage);
 m = M/blocksize;
 n = N/blocksize;
 for i = 1 : m

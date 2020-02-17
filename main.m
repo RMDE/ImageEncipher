@@ -11,12 +11,12 @@ key = 1;
 
 m = M/blocksize;
 n = N/blocksize;
-values = [];%store the original average pixel of every block
+values = zeros(m,n);%store the original average pixel of every block
 t = 1;%means the length+1 of values
 for i = 1 : m
     for j = 1 : n
         sub = origin(i:blocksize-1,j:blocksize-1);
-        value(t) = mean2(sub);
+        values(i,j) = mean2(sub);
         t = t+1;
     end
 end

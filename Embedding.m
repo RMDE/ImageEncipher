@@ -118,7 +118,8 @@ bits = Encode(bits);
 data(len1+len2+1:len1+len2+len3) = bits(1:len3);
 [~,datalen]=size(data);
 if spaceroom > datalen %have extra spare space
-    data(datalen+1:spaceroom) = 1;
+    data(datalen+1) = 0;
+    data(datalen+2:spaceroom) = 1;
 end
 no=1; %means the index of data to embed
 for i = x+1 : 1 : x+blocksize-2

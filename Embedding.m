@@ -46,12 +46,12 @@ for i = x+1 : 1 : x+blocksize-2
         end
         if h==0 || h==-1
             SORT(i,j) = 1;
-            MAP(i-x,floor(j/2)) = 1;
+            MAP(i-x,floor((j-y+1)/2)) = 1;
             spaceroom = spaceroom+1;
         elseif abs(2*h+1) < min
             if sum < count
                 SORT(i,j) = 1;
-                MAP(i-x,floor(j/2)) = 1;
+                MAP(i-x,floor((j-y+1)/2)) = 1;
                 sum = sum+1;
             else
                 SORT(i,j) = 2;
@@ -81,25 +81,25 @@ L = [];
 MAP=MAP';
 MAP=MAP(:);
 MAP=MAP'; %to change the MAP to unidimensional matrix
-[~,len] = size(MAP);
-n = 1;
-i = 1;
-tem = [1,1,1,1,1];
-while i <= len
-    if i+4<=len 
-        if MAP(i:i+4)==tem(1:5)
-            L(n:n+4) = MAP(i:i+4);
-            L(n+5) = 0;
-            n = n+6;
-            i = i+5;
-            continue;
-        end
-    end
-    L(n) = MAP(i);
-    n = n+1;
-    i = i+1;
-end
-L(n:n+7) = [0,1,1,1,1,1,1,0];
+% [~,len] = size(MAP);
+% n = 1;
+% i = 1;
+% tem = [1,1,1,1,1,1];
+% while i <= len
+%     if i+5<=len 
+%         if MAP(i:i+5)==tem(1:6)
+%             L(n:n+5) = MAP(i:i+5);
+%             L(n+6) = 0;
+%             n = n+7;
+%             i = i+6;
+%             continue;
+%         end
+%     end
+%     L(n) = MAP(i);
+%     n = n+1;
+%     i = i+1;
+% end
+% L(n:n+8) = [0,1,1,1,1,1,1,1,0];
 
 %embedding bit in L & LSB $ bits into embedding area: EZ & EN1 & EN2 & CN
 %in EZ & EN1: the h`=2*h+bit
@@ -107,17 +107,19 @@ L(n:n+7) = [0,1,1,1,1,1,1,0];
 %l=(x+y)/2  h=x-y (as x and y are two pixel's value)
 %x`=l+(h`+1)/2  y`=l-(h`)/2
 %if there are more than len bits spare space, we embed 01111...1 in the end
-[~,len1] = size(L);
-data(1:len1) = L(1:len1);
+data=[];
+MAP = Encode(MAP);
+[~,len1] = size(MAP);
+data(1:len1) = MAP(1:len1);
 [~,len2] = size(LSB);
 data(len1+1:len1+len2) = LSB(1:len2);
+bits = Encode(bits);
 [~,len3] = size(bits);
 data(len1+len2+1:len1+len2+len3) = bits(1:len3);
 [~,datalen]=size(data);
 if spaceroom > datalen %have extra spare space
     data(datalen+1:spaceroom) = 1;
 end
-data
 no=1; %means the index of data to embed
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
@@ -136,6 +138,5 @@ for i = x+1 : 1 : x+blocksize-2
         SubImage(i,j+1) = l-floor(hh/2);
     end
 end
-
 
 end

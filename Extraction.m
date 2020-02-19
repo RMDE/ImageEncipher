@@ -33,36 +33,40 @@ for i = x+1 : 1 : x+blocksize-2
     end
 end
 
-%dipose the embedded message 'data'
-%the construction of data:location-map 01111110 LSB-of-EN2&CN MSB 01111...1
-index = 1;
-flag = 0;
-temp = [0,1,1,1,1,1,1,0];
-data
-while flag == 0
-   if data(index:index+7) == temp
-      flag = index+7; %the end of location-map + 01111110 
-   end
-   index = index+1;
-end
+% %dipose the embedded message 'data'
+% %the construction of data:location-map 01111110 LSB-of-EN2&CN MSB 01111...1
+% index = 1;
+% flag = 0;
+% temp = [0,1,1,1,1,1,1,1,0];
+% while flag == 0
+%    if data(index:index+8) == temp
+%       flag = index+8; %the end of location-map + 011111110 
+%    end
+%    index = index+1;
+% end
+%
+% %decoding the location-map to original construction
+% MAP = [];
+% temp = [1,1,1,1,1,1,0];
+% i = 1;%index in data
+% no = 1;%index in MAP
+% while i <= (flag-9)
+%     if data(i:i+6)==temp
+%         MAP(no:no+5) = temp(1:6);
+%         no = no+6;
+%         i = i+6;
+%     else
+%         MAP(no) = data(i);
+%         no = no+1;
+%         i = i+1;
+%     end
+% end
 
-%decoding the location-map to original construction
-MAP = [];
-temp = [1,1,1,1,1,0];
-i = 1;%index in data
-no = 1;%index in MAP
-while i <= (flag-8)
-    if data(i:i+5)==temp
-        MAP(no:no+4) = temp(1:5);
-        no = no+5;
-        i = i+6;
-    else
-        MAP(no) = data(i);
-        no = no+1;
-        i = i+1;
-    end
-end
-
+%decode the message 'data'
+%flag means the end of the locate-map
+data = Decode(data,blocksize);
+flag = (blocksize-2)*(blocksize-2)/2;
+MAP(1:flag) = data(1:flag);
 
 %recover the embedding area to original area before embedding
 infono = flag+1;%the index of LSB

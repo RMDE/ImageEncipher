@@ -6,7 +6,7 @@ bit=[];
 if number > 0
     bits = dec2bin(number);
 elseif number == 0
-    bits = 0;
+    bits = '0';
 else
     bit = Get(bit,-number,8);
     for i = 1 : 8

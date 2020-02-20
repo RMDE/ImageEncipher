@@ -3,8 +3,7 @@
 %x,y: the start location of block
 %MSB: the number of every bit in adjustment area used for adjustment
 %count: the max number of elements in EN1
-function SubImage = Embedding( origin, blocksize, x, y, MSB, count)
-
+function [data,SubImage] = Embedding( origin, blocksize, x, y, MSB, count)
 SubImage=origin;
 %select the highest MSB bits of each pixel in adjustment area
 bits = []; %store the highest MSB bits of pixels in adjustment area
@@ -34,7 +33,6 @@ MAP = zeros(blocksize-2,(blocksize-2)/2);%MAP: store the location map to tell wh
 LSB = [];%LSB: store the lowest bit of each pixel used as changable 
 sum = 0; %calculate the number of elements in EN1 at present 
 num = 0; %store the size of P
-spaceroom=0;
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
@@ -47,7 +45,6 @@ for i = x+1 : 1 : x+blocksize-2
         if h==0 || h==-1
             SORT(i,j) = 1;
             MAP(i-x,floor((j-y+1)/2)) = 1;
-            spaceroom = spaceroom+1;
         elseif abs(2*h+1) < min
             if sum < count
                 SORT(i,j) = 1;
@@ -62,7 +59,6 @@ for i = x+1 : 1 : x+blocksize-2
                     LSB(num) = t(len)-'0';
                 end
             end
-            spaceroom = spaceroom+1;
         elseif abs(2*floor(h/2)+1) < min
             SORT(i,j) = 2;
             t = Dec2bin(h);
@@ -71,7 +67,6 @@ for i = x+1 : 1 : x+blocksize-2
                 [~,len]=size(t);
                 LSB(num) = t(len)-'0';
             end
-            spaceroom = spaceroom+1;
         end
     end
 end
@@ -116,11 +111,6 @@ data(len1+1:len1+len2) = LSB(1:len2);
 bits = Encode(bits);
 [~,len3] = size(bits);
 data(len1+len2+1:len1+len2+len3) = bits(1:len3);
-[~,datalen]=size(data);
-if spaceroom > datalen %have extra spare space
-    data(datalen+1) = 0;
-    data(datalen+2:spaceroom) = 1;
-end
 no=1; %means the index of data to embed
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
@@ -130,14 +120,13 @@ for i = x+1 : 1 : x+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
         h = origin(i,j)-origin(i,j+1);
         if SORT(i,j) == 1 %expandable
-            hh = 2*h+data(no);
+            hh = 2*h;
         elseif SORT(i,j) == 2 %changable
-            hh = 2*floor(h/2)+data(no);
+            hh = 2*floor(h/2);
         end
         no = no+1;
         SubImage(i,j) = l+floor((hh+1)/2);
         SubImage(i,j+1) = l-floor(hh/2);
     end
 end
-
 end

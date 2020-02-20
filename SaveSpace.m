@@ -9,13 +9,45 @@ embed_image = origin;
 [M,N] = size(origin);
 m = M/blocksize;
 n = N/blocksize;
+DATA = [];%store the all message of every block to embedding
+
+%collecting the embedding message
 for i = 1 : m
     for j = 1 : n
         x = (i-1)*blocksize+1;
         y = (j-1)*blocksize+1;
-        embed_image = Embedding(embed_image,blocksize,x,y,MSB,count);
+        [data,embed_image] = Embedding(embed_image,blocksize,x,y,MSB,count);
+        DATA = Insert(data,DATA);
     end
 end
 
+%embedding the data to the whole image
+index = 1;
+[~,len] = size(DATA);
+for i = 1 : m
+    for j = 1 : n
+        x = (i-1)*blocksize+1;
+        y = (j-1)*blocksize+1;
+        
+        for p = x+1 : 1 : x+blocksize-2
+            for q = y+1 : 2 : y+blocksize-2
+                l = floor((embed_image(p,q)+embed_image(p,q+1))/2);
+                h = embed_image(p,q)-embed_image(p,q+1);
+                min = 2*(255-l);
+                b = 2*l+1;
+                if( b < min )
+                    min = b;
+                end
+                if abs(2*floor(h/2)+1)<min && index<=len
+                    hh = h+DATA(index);
+                    index = index+1;
+                    embed_image(p,q) = l+floor((hh+1)/2);
+                    embed_image(p,q+1) = l-floor(hh/2);
+                end
+            end
+        end
+        
+    end
+end
 
 end

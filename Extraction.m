@@ -16,6 +16,7 @@ MAP(1:flag) = data(1:flag);
 
 %recover the embedding area to original area before embedding
 infono = flag+1;%the index of LSB
+count=0;
 for i = x+1: 1 : x+blocksize-2
     for j = y+1: 2 : y+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
@@ -23,13 +24,14 @@ for i = x+1: 1 : x+blocksize-2
         t = (i-x-1)*((blocksize-2)/2)+(j-y+1)/2;
         if MAP(t)==1
             h = floor(hh/2);
-        else
+        else   
             if 0<=hh && hh<=1
                 h = 1;
             elseif -2<=hh && hh<=-1
                 h = -2;
             else
                 h = 2*floor(hh/2)+data(infono);
+                count = count+1;
                 infono = infono+1;
             end
         end
@@ -37,7 +39,7 @@ for i = x+1: 1 : x+blocksize-2
         ExImage(i,j+1) = l-floor(h/2);
     end
 end
- 
+
 %%recover the MSB of pixel in adjustment area
 %the start of MSB index in data is infono now
 for i = x : x+blocksize-1

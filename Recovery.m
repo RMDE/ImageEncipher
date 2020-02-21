@@ -48,9 +48,10 @@ i = 1;%index of DATA
 no = 1;%index of mess
 temp = [1,1,1,1,1,1,1,1,0];
 ending = [0,1,1,1,1,1,1,1,1,1,0];
+
 while j <= m*n
    if DATA(i:i+10) ==  ending(1:11)
-       board(j) = i-1;
+       board(j) = no-1;
        j = j+1;
        i = i+11;
    elseif DATA(i:i+8) == temp(1:9)
@@ -70,7 +71,7 @@ for i = 1 : m
         data = [];
         x = (i-1)*blocksize+1;
         y = (j-1)*blocksize+1;
-        t = (i-1)*(j-1)+1;
+        t = (i-1)*m+j;
         a = uint32(board(t));
         if t > 1
             b = uint32(board(t-1));

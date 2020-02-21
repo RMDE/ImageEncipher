@@ -22,17 +22,24 @@ for i = x+1: 1 : x+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
         hh = origin(i,j)-origin(i,j+1);
         t = (i-x-1)*((blocksize-2)/2)+(j-y+1)/2;
-        if MAP(t)==1
-            h = floor(hh/2);
-        else   
-            if 0<=hh && hh<=1
-                h = 1;
-            elseif -2<=hh && hh<=-1
-                h = -2;
-            else
-                h = 2*floor(hh/2)+data(infono);
-                count = count+1;
-                infono = infono+1;
+        min = 2*(255-l);
+        b = 2*l+1;
+        if( b < min )
+            min = b;
+        end
+        if abs(2*floor(hh/2)+1)<min
+            if MAP(t)==1
+                h = floor(hh/2);
+            else   
+                if 0<=hh && hh<=1
+                    h = 1;
+                elseif -2<=hh && hh<=-1
+                    h = -2;
+                else
+                    h = 2*floor(hh/2)+data(infono);
+                    count = count+1;
+                    infono = infono+1;
+                end
             end
         end
         ExImage(i,j) = l+floor((h+1)/2);

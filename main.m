@@ -6,7 +6,7 @@ blocksize = 16;
 MSB = 1;
 count = 78;
 key = 1;
-
+imshow(origin)
 
 m = M/blocksize;
 n = N/blocksize;
@@ -20,7 +20,19 @@ for i = 1 : m
     end 
 end
 embed_image = SaveSpace( origin , blocksize , MSB , count);
-AjImage = Adjustment( embed_image , blocksize , values , MSB);
-EnImage = Encipher( AjImage , key ); %encipher
-DeImage = Encipher( EnImage , key ); %decipher
+EnImage = Encipher( embed_image , key ); %encipher
+AjImage = Adjustment( EnImage , blocksize , values , MSB);
+DeImage = Encipher( AjImage , key ); %decipher
 ReImage = Recovery( DeImage , blocksize , MSB );
+
+% subplot(1,3,1);
+% imshow(origin);
+% title('original image');
+% subplot(1,3,2);
+% imshow(AjImage);
+% title('after adjustment');
+% imwrite(AjImage,'result.png','png');
+% subplot(1,3,3);
+% imshow(ReImage);
+% imwrite(ReImage,'recover.png','png');
+

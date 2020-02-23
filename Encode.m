@@ -8,7 +8,7 @@ count = 0;%to store the number of '0' or '1'
 res = [];%store the compression result, every progress result in one byte and the LSB is the type of number counted('0' or '1')
 l = 1;%index of res
 flag = 0;%means the number now to calculate is '0'
-while i < length
+while i <= length
     if data(i)==0
         while i<=length && data(i)==0 && count<127  %calculate the number of '0'
             count = count+1;

@@ -7,6 +7,8 @@
 function ExImage = Extraction( origin, blocksize, x, y, MSB ,data )
 
 ExImage = origin;
+% if x==81&&y==49
+%     data
 
 %decode the message 'data'
 %flag means the end of the locate-map

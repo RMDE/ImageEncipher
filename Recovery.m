@@ -77,7 +77,7 @@ for i = 1 : m
             b = uint32(board(t-1));
         end
         data(1:a-b) = mess(b+1:a); 
-        %ReImage = Extraction(ReImage,blocksize,x,y,MSB,data);
+        ReImage = Extraction(ReImage,blocksize,x,y,MSB,data);
     end
 end
 

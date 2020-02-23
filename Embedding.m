@@ -130,5 +130,12 @@ for i = x+1 : 1 : x+blocksize-2
     end
 end
 
+% if x==81&&y==49
+%     data
+%     MAP
+%     LSB
+%     bits
+%     SORT
+% end
 
 end

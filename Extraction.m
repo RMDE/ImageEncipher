@@ -7,8 +7,6 @@
 function ExImage = Extraction( origin, blocksize, x, y, MSB ,data )
 
 ExImage = origin;
-% if x==81&&y==49
-%     data
 
 %decode the message 'data'
 %flag means the end of the locate-map
@@ -22,7 +20,7 @@ count=0;
 for i = x+1: 1 : x+blocksize-2
     for j = y+1: 2 : y+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
-        hh = origin(i,j)-origin(i,j+1);
+        hh = double(origin(i,j)-origin(i,j+1));
         t = (i-x-1)*((blocksize-2)/2)+(j-y+1)/2;
         min = 2*(255-l);
         b = 2*l+1;

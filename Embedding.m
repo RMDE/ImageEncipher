@@ -7,6 +7,7 @@ function [data,SubImage] = Embedding( origin, blocksize, x, y, MSB, count)
 SubImage=origin;
 %select the highest MSB bits of each pixel in adjustment area
 bits = []; %store the highest MSB bits of pixels in adjustment area
+
 for i = x : x+blocksize-1
     bits = Get(bits,origin(i,y),MSB); 
 end
@@ -36,7 +37,7 @@ num = 0; %store the size of P
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
         l = floor((origin(i,j)+origin(i,j+1))/2);
-        h = origin(i,j)-origin(i,j+1);
+        h = double(origin(i,j)-origin(i,j+1));
         min = 2*(255-l);
         b = 2*l+1;
         if( b < min )
@@ -118,11 +119,13 @@ for i = x+1 : 1 : x+blocksize-2
             continue;
         end
         l = floor((origin(i,j)+origin(i,j+1))/2);
-        h = origin(i,j)-origin(i,j+1);
+        h = double(origin(i,j)-origin(i,j+1));
         if SORT(i,j) == 1 %expandable
             hh = 2*h;
         elseif SORT(i,j) == 2 %changable
             hh = 2*floor(h/2);
+        else
+            hh = h;
         end
         no = no+1;
         SubImage(i,j) = l+floor((hh+1)/2);
@@ -130,12 +133,5 @@ for i = x+1 : 1 : x+blocksize-2
     end
 end
 
-% if x==81&&y==49
-%     data
-%     MAP
-%     LSB
-%     bits
-%     SORT
-% end
 
 end

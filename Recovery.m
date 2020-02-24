@@ -23,7 +23,7 @@ for i = 1 : m
         for p = x+1 : 1 : x+blocksize-2
             for q = y+1 : 2 : y+blocksize-2
                 l = floor((origin(p,q)+origin(p,q+1))/2);
-                h = origin(p,q)-origin(p,q+1);
+                h = double(origin(p,q)-origin(p,q+1));
                 min = 2*(255-l);
                 b = 2*l+1;
                 if b < min

@@ -27,6 +27,3 @@ ReImage = Recovery( DeImage , blocksize , MSB );
 imwrite(AjImage,'result.png','png');
 imwrite(ReImage,'recover.png','png');
 
-origin(1:16,1:16)
-ReImage(1:16,1:16)
-

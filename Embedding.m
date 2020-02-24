@@ -36,7 +36,7 @@ sum = 0; %calculate the number of elements in EN1 at present
 num = 0; %store the size of P
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
-        l = floor((origin(i,j)+origin(i,j+1))/2);
+        l = floor(double(uint16(origin(i,j))+uint16(origin(i,j+1)))/2);
         h = double(origin(i,j)-origin(i,j+1));
         min = 2*(255-l);
         b = 2*l+1;
@@ -113,12 +113,16 @@ bits = Encode(bits);
 [~,len3] = size(bits);
 data(len1+len2+1:len1+len2+len3) = bits(1:len3);
 no=1; %means the index of data to embed
+
+if x==81 &&y==49
+    h=1;
+end
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
         if SORT(i,j) == 0
             continue;
         end
-        l = floor((origin(i,j)+origin(i,j+1))/2);
+        l = floor(double(uint16(origin(i,j))+uint16(origin(i,j+1)))/2);
         h = double(origin(i,j)-origin(i,j+1));
         if SORT(i,j) == 1 %expandable
             hh = 2*h;

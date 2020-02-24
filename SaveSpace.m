@@ -31,7 +31,7 @@ for i = 1 : m
         
         for p = x+1 : 1 : x+blocksize-2
             for q = y+1 : 2 : y+blocksize-2
-                l = floor((embed_image(p,q)+embed_image(p,q+1))/2);
+                l = floor(double(uint16(embed_image(p,q))+uint16(embed_image(p,q+1)))/2);
                 h = double(embed_image(p,q)-embed_image(p,q+1));
                 min = 2*(255-l);
                 b = 2*l+1;

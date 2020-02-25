@@ -25,9 +25,9 @@ locationx(len:len+blocksize-3) = x+blocksize-1;
 locationy(len:len+blocksize-3) = y+1:y+blocksize-2;
 len = len+blocksize-3;
 sub = origin(x+1:x+blocksize-2,y+1:y+blocksize-2);
-Sum = sum(sub(:));
+Sum = double(sum(sub(:)));
 for i = 1 : len
-    Sum = Sum+Calcu(origin(locationx(i),locationy(i)),MSB);
+    Sum = Sum+double(Calcu(origin(locationx(i),locationy(i)),MSB));
 end
 
 %second: calculate the difference between 'current' and blocksize*blocksize*value
@@ -44,9 +44,9 @@ end
 num = zeros(count);%store the number of every value in number
 if count == 1
     for x = 1 : len
-        Sum = Sum+number(1);
-        difference = abs(Sum-blocksize*blocksize*value);
-        if difference < number(1)
+        s = Sum+number(1)*x;
+        difference = abs(s-blocksize*blocksize*value);
+        if difference < number(1)/2 || x == len
             num(1) = x;
             break;
         end
@@ -57,12 +57,12 @@ if count == 1
     for i = num(1)+1 : len
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
-elseif count == 2
+elseif count == 3
     for x = 0 : len
         for y = 0 : len-x
-            Sum = Sum+number(1)*x+number(2)*y;
-            difference = abs(Sum-blocksize*blocksize*value);
-            if difference < number(1)
+            s = Sum+number(1)*x+number(2)*y;
+            difference = abs(s-blocksize*blocksize*value);
+            if difference < number(1)/2 || x+y==len
                 num(1) = x;
                 num(2) = y;
                 break;
@@ -78,7 +78,7 @@ elseif count == 2
     for i = num(2)+1 : len
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
-elseif count == 3
+elseif count == 7
     for x = 0 : len
         for y = 0 : len-x
             for z = 0 : len-x-y
@@ -86,9 +86,9 @@ elseif count == 3
                     for q = 0 : len-x-y-z-p
                         for r = 0 : len-x-y-z-p-q
                             for n = 0 : len-x-y-z-p-q-r
-                                Sum = Sum+number(1)*x+number(2)*y+number(3)*z+number(4)*p+number(5)*q+number(6)*r+number(7)*n;
-                                difference = abs(Sum-blocksize*blocksize*value);
-                                if difference < number(1)
+                                s = Sum+number(1)*x+number(2)*y+number(3)*z+number(4)*p+number(5)*q+number(6)*r+number(7)*n;
+                                difference = abs(s-blocksize*blocksize*value);
+                                if difference < number(1)/2 ||x+y+z+p+q+r+n==len
                                     num(1) = x;
                                     num(2) = y;
                                     num(3) = z;

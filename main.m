@@ -9,9 +9,10 @@ key = 1;
 m = M/blocksize;
 n = N/blocksize;
 values = zeros(m,n);%store the original average pixel of every block
+sub = zeros(blocksize);
 for i = 1 : m
     for j = 1 : n
-        sub = origin(i:i+blocksize-1,j:j+blocksize-1);
+        sub(1:blocksize,1:blocksize) = origin(i:i+blocksize-1,j:j+blocksize-1);
         values(i,j) = mean2(sub);
     end 
 end
@@ -28,8 +29,9 @@ imwrite(ReImage,'recover.png','png');
 res_values = zeros(m,n);%store the original average pixel of every block
 for i = 1 : m
     for j = 1 : n
-        sub = AjImage(i:i+blocksize-1,j:j+blocksize-1);
-        res_values(i,j) = mean2(sub);
+        values(i,j) = uint8(values(i,j));
+        sub(1:blocksize,1:blocksize) = AjImage(i:i+blocksize-1,j:j+blocksize-1);
+        res_values(i,j) = uint8(mean2(sub));
     end 
 end
 
@@ -43,8 +45,9 @@ for i = 1 : m
 end
 difference = sum/(m*n)
 
+
 %generate the trump
 % values = image(values);
 % res_values = image(res_values);
-% imwrite(values,'rev_origin.png','png');
-% imwrite(res_values,'rev_result.png','png');
+imwrite(values,'rev_origin.png','png');
+imwrite(res_values,'rev_result.png','png');

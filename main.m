@@ -22,18 +22,25 @@ EnImage = Encipher( embed_image , key ); %encipher
 AjImage = Adjustment( EnImage , blocksize , values , MSB);
 DeImage = Encipher( AjImage , key ); %decipher
 ReImage = Recovery( DeImage , blocksize , MSB );
-
 imwrite(AjImage,'result.png','png');
 imwrite(ReImage,'recover.png','png');
+
+
+rev_origin = origin;
+rev_adj = origin;
 
 res_values = zeros(m,n);%store the original average pixel of every block
 for i = 1 : m
     for j = 1 : n
-        values(i,j) = uint8(values(i,j));
         sub(1:blocksize,1:blocksize) = AjImage(i:i+blocksize-1,j:j+blocksize-1);
-        res_values(i,j) = uint8(mean2(sub));
+        res_values(i,j) = mean2(sub);
+%         rev_adj(i:i+blocksize-1,j:j+blocksize-1) = uint8(res_values(i,j));
+%         rev_origin(i:i+blocksize-1,j:j+blocksize-1) = uint8(values(i,j));
     end 
 end
+
+% imwrite(rev_origin,'rev_origin.png','png');
+% imwrite(rev_adj,'rev_adj.png','png');
 
 %caculate the difference between origin image and AjImage
 sum = double(0);
@@ -46,8 +53,3 @@ end
 difference = sum/(m*n)
 
 
-%generate the trump
-% values = image(values);
-% res_values = image(res_values);
-imwrite(values,'rev_origin.png','png');
-imwrite(res_values,'rev_result.png','png');

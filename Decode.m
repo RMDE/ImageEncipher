@@ -18,7 +18,7 @@ bit = [];
 sum = 0;
 p = uint16(length);
 q = 1;
-while sum < 4*blocksize-4 %MSB of the adjustment area 
+while sum < 2*(4*blocksize-4) %MSB of the adjustment area 
     num = data(p-1)+data(p-2)*2+data(p-3)*4+data(p-4)*8+data(p-5)*16+data(p-6)*32+data(p-7)*64;
     sum = sum+num;
     bit(q:q+num-1) = data(p);
@@ -26,11 +26,15 @@ while sum < 4*blocksize-4 %MSB of the adjustment area
     q = q+num;
 end
 bit = fliplr(bit);
-[~,n] = size(bit);
+% bits = bit;
+a = 4*blocksize-4;
+bits(1:2:2*a-1) = bit(1:a);
+bits(2:2:2*a) = bit(a+1:2*a);
+[~,n] = size(bits);
 if i<=p
     res(j:j+p-i) = data(i:p);
 end
 [~,len] = size(res);
-res(len+1:len+n) = bit(1:n);
+res(len+1:len+n) = bits(1:n);
 
 end

@@ -3,7 +3,7 @@
 origin = imread("original.jpg");
 [M,N] = size(origin);
 blocksize = 16;
-MSB = 1;
+MSB = 2;
 count = 78;
 key = 1;
 m = M/blocksize;
@@ -22,6 +22,7 @@ EnImage = Encipher( embed_image , key ); %encipher
 AjImage = Adjustment( EnImage , blocksize , values , MSB);
 DeImage = Encipher( AjImage , key ); %decipher
 ReImage = Recovery( DeImage , blocksize , MSB );
+imwrite(EnImage,"cipher.png",'png');
 imwrite(AjImage,'result.png','png');
 imwrite(ReImage,'recover.png','png');
 

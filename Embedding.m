@@ -7,20 +7,22 @@ function [data,SubImage] = Embedding( origin, blocksize, x, y, MSB, count)
 SubImage=origin;
 %select the highest MSB bits of each pixel in adjustment area
 bits = []; %store the highest MSB bits of pixels in adjustment area
-
+bit = [];
 for i = x : x+blocksize-1
-    bits = Get(bits,origin(i,y),MSB); 
+    bit = Get(bit,origin(i,y),MSB); 
 end
 for i = x : x+blocksize-1
-    bits = Get(bits,origin(i,y+blocksize-1),MSB);
+    bit = Get(bit,origin(i,y+blocksize-1),MSB);
 end
 for j = y+1 : y+blocksize-2
-    bits = Get(bits,origin(x,j),MSB);
+    bit = Get(bit,origin(x,j),MSB);
 end
 for j = y+1 : y+blocksize-2
-    bits = Get(bits,origin(x+blocksize-1,j),MSB);
+    bit = Get(bit,origin(x+blocksize-1,j),MSB);
 end
-
+a = 4*blocksize-4;
+bits(1:a) = bit(1:2:2*a-1);
+bits(a+1:2*a) = bit(2:2:2*a);
 %1-divide all pixel into different sets: EZ & EN1 & EN2 & CN & NC
 %2-generate the lacation-map MAP
 %3-store the lowest bit of each pixel in EN2 and CN  

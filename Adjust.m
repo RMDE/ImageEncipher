@@ -27,7 +27,8 @@ len = len+blocksize-3;
 sub = origin(x+1:x+blocksize-2,y+1:y+blocksize-2);
 Sum = double(sum(sub(:)));
 for i = 1 : len
-    Sum = Sum+double(Calcu(origin(locationx(i),locationy(i)),MSB));
+    t = Calcu(origin(locationx(i),locationy(i)),MSB);
+    Sum = Sum+double(t);
 end
 
 %second: calculate the difference between 'current' and blocksize*blocksize*value
@@ -39,9 +40,11 @@ if difference<number(1)
     for i = 1 :len
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end
+    return;
 end
 [~,count] = size(number);
-num = zeros(count);%store the number of every value in number
+num = zeros(1,count);%store the number of every value in number
+state = 0; 
 if count == 1
     for x = 1 : len
         s = Sum+number(1)*x;
@@ -58,25 +61,41 @@ if count == 1
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
 elseif count == 3
-    for x = 0 : len
-        for y = 0 : len-x
-            s = Sum+number(1)*x+number(2)*y;
-            difference = abs(s-blocksize*blocksize*value);
-            if difference < number(1)/2 || x+y==len
-                num(1) = x;
-                num(2) = y;
+    for x = len : -1 : 0
+        for y = len-x : -1 : 0
+            for z = len-x-y : -1 : 0
+                s = Sum+number(1)*x+number(2)*y+number(3)*z;
+                difference = abs(s-blocksize*blocksize*value);
+                if difference < number(1)/2 
+                    num(1) = x;
+                    num(2) = y;
+                    num(3) = z;
+                    state = 1;
+                    break;
+                end
+            end
+            if state == 1
                 break;
             end
         end
+        if state == 1
+            break;
+        end
+    end
+    if state == 0
+        Sum-blocksize*blocksize*value
+        num(1) = 0;
+        num(2) = 0;
+        num(3) = 60;
     end
     for i = 1 : num(1)
-        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(1);
+        AjImage(locationx(i),locationy(i)) = uint8(Calcu(origin(locationx(i),locationy(i)),MSB)+number(1));
     end
     for i = num(1)+1 : num(2)
-        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(2);
+        AjImage(locationx(i),locationy(i)) = uint8(Calcu(origin(locationx(i),locationy(i)),MSB)+number(2));
     end
     for i = num(2)+1 : len
-       AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
+       AjImage(locationx(i),locationy(i)) = Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
 elseif count == 7
     for x = 0 : len
@@ -130,7 +149,7 @@ elseif count == 7
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
 end
-    
+
 
 
 end

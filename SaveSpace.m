@@ -41,8 +41,8 @@ for i = 1 : m
                 if abs(2*floor(h/2)+1)<min && index<=len
                     hh = h+DATA(index);
                     index = index+1;
-                    embed_image(p,q) = l+floor((hh+1)/2);
-                    embed_image(p,q+1) = l-floor(hh/2);
+                    embed_image(p,q) = uint8(l+floor((hh+1)/2));
+                    embed_image(p,q+1) = uint8(l-floor(hh/2));
                 end
             end
         end

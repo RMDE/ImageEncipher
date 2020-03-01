@@ -131,8 +131,8 @@ for i = x+1 : 1 : x+blocksize-2
             hh = h;
         end
         no = no+1;
-        SubImage(i,j) = l+floor((hh+1)/2);
-        SubImage(i,j+1) = l-floor(hh/2);
+        SubImage(i,j) = uint8(l+floor((hh+1)/2));
+        SubImage(i,j+1) = uint8(l-floor(hh/2));
     end
 end
 

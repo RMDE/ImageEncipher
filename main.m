@@ -4,7 +4,7 @@ origin = imread("original.jpg");
 [M,N] = size(origin);
 blocksize = 16;
 MSB = 2;
-count = 78;
+count = 200;
 key = 1;
 m = M/blocksize;
 n = N/blocksize;
@@ -12,7 +12,9 @@ values = zeros(m,n);%store the original average pixel of every block
 sub = zeros(blocksize);
 for i = 1 : m
     for j = 1 : n
-        sub(1:blocksize,1:blocksize) = origin(i:i+blocksize-1,j:j+blocksize-1);
+        x = (i-1)*blocksize+1;
+        y = (j-1)*blocksize+1;
+        sub(1:blocksize,1:blocksize) = origin(x:x+blocksize-1,y:y+blocksize-1);
         values(i,j) = mean2(sub);
     end 
 end
@@ -26,31 +28,25 @@ imwrite(EnImage,"cipher.png",'png');
 imwrite(AjImage,'result.png','png');
 imwrite(ReImage,'recover.png','png');
 
-
-rev_origin = origin;
-rev_adj = origin;
-
-res_values = zeros(m,n);%store the original average pixel of every block
-for i = 1 : m
-    for j = 1 : n
-        sub(1:blocksize,1:blocksize) = AjImage(i:i+blocksize-1,j:j+blocksize-1);
-        res_values(i,j) = mean2(sub);
-%         rev_adj(i:i+blocksize-1,j:j+blocksize-1) = uint8(res_values(i,j));
-%         rev_origin(i:i+blocksize-1,j:j+blocksize-1) = uint8(values(i,j));
-    end 
-end
-
-% imwrite(rev_origin,'rev_origin.png','png');
-% imwrite(rev_adj,'rev_adj.png','png');
-
-%caculate the difference between origin image and AjImage
-sum = double(0);
-for i = 1 : m
-    for j = 1 : n
-        t = abs(res_values(i,j)-values(i,j))/values(i,j);
-        sum = sum+t;
-    end
-end
-difference = sum/(m*n)
+% res_values = zeros(m,n);%store the original average pixel of every block
+% for i = 1 : m
+%     for j = 1 : n
+%         x = (i-1)*blocksize+1;
+%         y = (j-1)*blocksize+1;
+%         sub(1:blocksize,1:blocksize) = AjImage(x:x+blocksize-1,y:y+blocksize-1);
+%         res_values(i,j) = mean2(sub);
+%     end 
+% end
+% 
+% 
+% %caculate the difference between origin image and AjImage
+% sum = double(0);
+% for i = 1 : m
+%     for j = 1 : n
+%         t = abs(res_values(i,j)-values(i,j))/values(i,j);
+%         sum = sum+t;
+%     end
+% end
+% difference = sum/(m*n)
 
 

@@ -38,7 +38,7 @@ difference = blocksize*blocksize*value-Sum; %generally the former must bigger th
 %third: search to find the perfect result
 if difference<number(1)
     for i = 1 :len
-        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
+        AjImage(locationx(i),locationy(i)) = Calcu(origin(locationx(i),locationy(i)),MSB);
     end
     return;
 end
@@ -46,11 +46,11 @@ end
 num = zeros(1,count);%store the number of every value in number
 state = 0; 
 if count == 1
-    for x = 1 : len
-        s = Sum+number(1)*x;
+    for p = 1 : len
+        s = Sum+number(1)*p;
         difference = abs(s-blocksize*blocksize*value);
-        if difference < number(1)/2 || x == len
-            num(1) = x;
+        if difference < number(1)/2 || p == len
+            num(1) = p;
             break;
         end
     end
@@ -61,15 +61,15 @@ if count == 1
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
 elseif count == 3
-    for x = len : -1 : 0
-        for y = len-x : -1 : 0
-            for z = len-x-y : -1 : 0
-                s = Sum+number(1)*x+number(2)*y+number(3)*z;
+    for p = len : -1 : 0
+        for q = len-p : -1 : 0
+            for r = len-p-q : -1 : 0
+                s = Sum+number(1)*p+number(2)*q+number(3)*r;
                 difference = abs(s-blocksize*blocksize*value);
                 if difference < number(1)/2 
-                    num(1) = x;
-                    num(2) = y;
-                    num(3) = z;
+                    num(1) = p;
+                    num(2) = q;
+                    num(3) = r;
                     state = 1;
                     break;
                 end
@@ -83,7 +83,6 @@ elseif count == 3
         end
     end
     if state == 0
-        Sum-blocksize*blocksize*value
         num(1) = 0;
         num(2) = 0;
         num(3) = 60;
@@ -91,12 +90,15 @@ elseif count == 3
     for i = 1 : num(1)
         AjImage(locationx(i),locationy(i)) = uint8(Calcu(origin(locationx(i),locationy(i)),MSB)+number(1));
     end
-    for i = num(1)+1 : num(2)
+    for i = num(1)+1 : num(1)+num(2)
         AjImage(locationx(i),locationy(i)) = uint8(Calcu(origin(locationx(i),locationy(i)),MSB)+number(2));
     end
-    for i = num(2)+1 : len
-       AjImage(locationx(i),locationy(i)) = Calcu(origin(locationx(i),locationy(i)),MSB);
+    for i = num(1)+num(2)+1 : num(1)+num(2)+num(3)
+        AjImage(locationx(i),locationy(i)) = uint8(Calcu(origin(locationx(i),locationy(i)),MSB)+number(3));
     end 
+    for i = num(1)+num(2)+num(3)+1 : len
+        AjImage(locationx(i),locationy(i)) = Calcu(origin(locationx(i),locationy(i)),MSB);
+    end
 elseif count == 7
     for x = 0 : len
         for y = 0 : len-x
@@ -107,7 +109,7 @@ elseif count == 7
                             for n = 0 : len-x-y-z-p-q-r
                                 s = Sum+number(1)*x+number(2)*y+number(3)*z+number(4)*p+number(5)*q+number(6)*r+number(7)*n;
                                 difference = abs(s-blocksize*blocksize*value);
-                                if difference < number(1)/2 ||x+y+z+p+q+r+n==len
+                                if difference < number(1)/2 
                                     num(1) = x;
                                     num(2) = y;
                                     num(3) = z;
@@ -115,13 +117,32 @@ elseif count == 7
                                     num(5) = q;
                                     num(6) = r;
                                     num(7) = n;
+                                    state = 1;
                                     break;
                                 end
                             end
+                            if state == 1
+                                break;
+                            end
+                        end
+                        if state == 1
+                            break;
                         end
                     end
+                    if state == 1
+                        break;
+                    end
+                end
+                if state == 1
+                    break;
                 end
             end
+            if state == 1
+                break;
+            end
+        end
+        if state == 1
+            break;
         end
     end
     for i = 1 : num(1)
@@ -130,26 +151,25 @@ elseif count == 7
     for i = num(1)+1 : num(2)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(2);
     end
-    for i = num(2)+1 : num(3)
+    for i = num(1)+num(2)+1 : num(1)+num(2)+num(3)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(3);
     end
-    for i = num(3)+1 : num(4)
+    for i = num(1)+num(2)+num(3)+1 : num(1)+num(2)+num(3)+num(4)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(4);
     end
-    for i = num(4)+1 : num(5)
+    for i = num(1)+num(2)+num(3)+num(4)+1 : num(1)+num(2)+num(3)+num(4)+num(5)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(5);
     end
-    for i = num(5)+1 : num(6)
+    for i = num(1)+num(2)+num(3)+num(4)+num(5)+1 : num(1)+num(2)+num(3)+num(4)+num(5)+num(6)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(6);
     end
-    for i = num(7)+1 : num(7)
+    for i = num(1)+num(2)+num(3)+num(4)+num(5)+num(6)+1 : num(1)+num(2)+num(3)+num(4)+num(5)+num(6)+num(7)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(7);
     end
-    for i = num(7)+1 : len
+    for i = num(1)+num(2)+num(3)+num(4)+num(5)+num(6)+num(7)+1 : len
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
 end
-
 
 
 end

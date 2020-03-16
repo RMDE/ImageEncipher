@@ -1,3 +1,5 @@
 *.asv
 test.*
+*.pptx
+*.docx
 setting.code-workspace

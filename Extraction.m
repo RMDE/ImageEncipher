@@ -10,7 +10,7 @@ ExImage = origin;
 
 %decode the message 'data'
 %flag means the end of the locate-map
-data = Decode(data,blocksize);
+data = Decode(data,blocksize,MSB);
 flag = (blocksize-2)*(blocksize-2)/2;
 MAP(1:flag) = data(1:flag);
 

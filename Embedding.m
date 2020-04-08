@@ -20,9 +20,20 @@ end
 for j = y+1 : y+blocksize-2
     bit = Get(bit,origin(x+blocksize-1,j),MSB);
 end
-a = 4*blocksize-4;
-bits(1:a) = bit(1:2:2*a-1);
-bits(a+1:2*a) = bit(2:2:2*a);
+if MSB == 1
+    bits=bit;
+end
+if MSB == 2
+    a = 4*blocksize-4;
+    bits(1:a) = bit(1:2:2*a-1);
+    bits(a+1:2*a) = bit(2:2:2*a);
+end
+if MSB == 3
+    a = 4*blocksize-4;
+    bits(1:a) = bit(1:3:3*a-2);
+    bits(a+1:2*a) = bit(2:3:3*a-1);
+    bits(2*a+1:3*a) = bit(3:3:3*a);
+end
 %1-divide all pixel into different sets: EZ & EN1 & EN2 & CN & NC
 %2-generate the lacation-map MAP
 %3-store the lowest bit of each pixel in EN2 and CN  

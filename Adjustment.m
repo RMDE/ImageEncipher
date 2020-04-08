@@ -9,12 +9,15 @@ AjImage = origin;
 [M,N] = size(AjImage);
 m = M/blocksize;
 n = N/blocksize;
+sum = 0;
 for i = 1 : m
     for j = 1 : n
         x = (i-1)*blocksize+1;
         y = (j-1)*blocksize+1;
-        AjImage = Adjust(AjImage,blocksize,x,y,MSB,value(i,j));
+        [AjImage,x] = Adjust(AjImage,blocksize,x,y,MSB,value(i,j));
+        sum = sum+x;
     end
 end
+sum
 
 end

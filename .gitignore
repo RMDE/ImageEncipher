@@ -2,4 +2,6 @@
 test.*
 *.pptx
 *.docx
+*.png
+!original.png
 setting.code-workspace

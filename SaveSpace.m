@@ -23,7 +23,7 @@ end
 
 %embedding the data to the whole image
 index = 1;
-[~,len] = size(DATA);
+[~,len] = size(DATA)
 for i = 1 : m
     for j = 1 : n
         x = (i-1)*blocksize+1;

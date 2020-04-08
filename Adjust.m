@@ -4,7 +4,7 @@
 %(x,y): the start location of block
 %value: store the average pixel in every block of the original image
 %MSB: the number of every bit in adjustment area used for adjustment
-function AjImage = Adjust(origin,blocksize,x,y,MSB,value)
+function [AjImage,success] = Adjust(origin,blocksize,x,y,MSB,value)
 
 %first: calculate the low (8-MSB) bit of all pixel --> sum 
 %store the all adjustment area location in locationx and locationy
@@ -12,6 +12,7 @@ AjImage = origin;
 locationx = [];
 locationy = [];
 len = 1;
+success=0;
 locationx(len:len+blocksize-1) = x:x+blocksize-1;
 locationy(len:len+blocksize-1) = y;
 len = len+blocksize;
@@ -49,10 +50,15 @@ if count == 1
     for p = 1 : len
         s = Sum+number(1)*p;
         difference = abs(s-blocksize*blocksize*value);
-        if difference < number(1)/2 || p == len
+        if difference < number(1)/2 
             num(1) = p;
+            state = 1;
             break;
         end
+    end
+    if state == 0
+        num(1) = 4*blocksize-4;
+        s= Sum+num(1)*(4*blocksize-4);
     end
     for i = 1 : num(1)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(1);
@@ -66,7 +72,7 @@ elseif count == 3
             for r = len-p-q : -1 : 0
                 s = Sum+number(1)*p+number(2)*q+number(3)*r;
                 difference = abs(s-blocksize*blocksize*value);
-                if difference < number(1)/2 
+                if difference < number(1)
                     num(1) = p;
                     num(2) = q;
                     num(3) = r;
@@ -85,7 +91,8 @@ elseif count == 3
     if state == 0
         num(1) = 0;
         num(2) = 0;
-        num(3) = 60;
+        num(3) = 4*blocksize-4;
+        s = Sum+number(3)*(4*blocksize-4);
     end
     for i = 1 : num(1)
         AjImage(locationx(i),locationy(i)) = uint8(Calcu(origin(locationx(i),locationy(i)),MSB)+number(1));
@@ -145,6 +152,16 @@ elseif count == 7
             break;
         end
     end
+    if state == 0
+        num(1) = 0;
+        num(2) = 0;
+        num(3) = 0;
+        num(4) = 0;
+        num(5) = 0;
+        num(6) = 0;
+        num(7) = 4*blocksize-4;
+        s = Sum+num(7)*(4*blocksize-4);
+    end
     for i = 1 : num(1)
         AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB)+number(1);
     end
@@ -170,6 +187,8 @@ elseif count == 7
        AjImage(locationx(i),locationy(i))=Calcu(origin(locationx(i),locationy(i)),MSB);
     end 
 end
-
+difference = abs(s-blocksize*blocksize*value);
+if difference<blocksize*blocksize*5
+    success = 1;
 
 end

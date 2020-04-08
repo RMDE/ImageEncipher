@@ -1,6 +1,6 @@
 %file:Decode.m
 %to decoding the encoded message
-function res = Decode( data , blocksize)
+function res = Decode( data , blocksize, MSB)
 
 [~,length] = size(data);
 i = uint16(1);%the index of data
@@ -18,7 +18,7 @@ bit = [];
 sum = 0;
 p = uint16(length);
 q = 1;
-while sum < 2*(4*blocksize-4) %MSB of the adjustment area 
+while sum < MSB*(4*blocksize-4) %MSB of the adjustment area 
     num = data(p-1)+data(p-2)*2+data(p-3)*4+data(p-4)*8+data(p-5)*16+data(p-6)*32+data(p-7)*64;
     sum = sum+num;
     bit(q:q+num-1) = data(p);
@@ -27,9 +27,20 @@ while sum < 2*(4*blocksize-4) %MSB of the adjustment area
 end
 bit = fliplr(bit);
 % bits = bit;
-a = 4*blocksize-4;
-bits(1:2:2*a-1) = bit(1:a);
-bits(2:2:2*a) = bit(a+1:2*a);
+if MSB == 1
+    bits=bit;
+end
+if MSB == 2
+    a = 4*blocksize-4;
+    bits(1:2:2*a-1) = bit(1:a);
+    bits(2:2:2*a) = bit(a+1:2*a);
+end
+if MSB == 3
+    a = 4*blocksize-4;
+    bits(1:3:3*a-2) = bit(1:a);
+    bits(2:3:3*a-1) = bit(a+1:2*a);
+    bits(3:3:3*a) = bit(2*a+1:3*a);
+end
 [~,n] = size(bits);
 if i<=p
     res(j:j+p-i) = data(i:p);

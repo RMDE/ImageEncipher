@@ -3,8 +3,8 @@
 origin = imread("original.jpg");
 [M,N] = size(origin);
 blocksize = 16;
-MSB = 2;
-count = 200;
+MSB = 1;
+count = 20000;
 key = 1;
 m = M/blocksize;
 n = N/blocksize;
@@ -18,6 +18,7 @@ for i = 1 : m
         values(i,j) = mean2(sub);
     end 
 end
+
 
 embed_image = SaveSpace( origin , blocksize , MSB , count);
 EnImage = Encipher( embed_image , key ); %encipher

@@ -57,15 +57,15 @@ for i = x+1 : 1 : x+blocksize-2
             min = b;
         end
         if h==0 || h==-1
-            SORT(i,j) = 1;
+            SORT(i-x,j-y) = 1;
             MAP(i-x,floor((j-y+1)/2)) = 1;
         elseif abs(2*h+1) < min
             if sum < count
-                SORT(i,j) = 1;
+                SORT(i-x,j-y) = 1;
                 MAP(i-x,floor((j-y+1)/2)) = 1;
                 sum = sum+1;
             else
-                SORT(i,j) = 2;
+                SORT(i-x,j-y) = 2;
                 t = Dec2bin(h);
                 if h~=1 && h~=-2
                     num=num+1;
@@ -74,7 +74,7 @@ for i = x+1 : 1 : x+blocksize-2
                 end
             end
         elseif abs(2*floor(h/2)+1) < min
-            SORT(i,j) = 2;
+            SORT(i-x,j-y) = 2;
             t = Dec2bin(h);
             if h~=1 && h~=-2 %as such value could br determined by location map
                 num=num+1;
@@ -129,14 +129,14 @@ no=1; %means the index of data to embed
 
 for i = x+1 : 1 : x+blocksize-2
     for j = y+1 : 2 : y+blocksize-2
-        if SORT(i,j) == 0
+        if SORT(i-x,j-y) == 0
             continue;
         end
         l = floor(double(uint16(origin(i,j))+uint16(origin(i,j+1)))/2);
         h = double(double(origin(i,j))-double(origin(i,j+1)));
-        if SORT(i,j) == 1 %expandable
+        if SORT(i-x,j-y) == 1 %expandable
             hh = 2*h;
-        elseif SORT(i,j) == 2 %changable
+        elseif SORT(i-x,j-y) == 2 %changable
             hh = 2*floor(h/2);
         else
             hh = h;

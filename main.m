@@ -27,6 +27,14 @@ EnImage = Encipher( embed_image , key); %encipher
 toc
 DeImage = Encipher( AjImage , key); %decipher
 ReImage = Recovery( DeImage , blocksize , MSB);
+for i = 1 : 1 : M
+    for j = 1 : 1 : N
+        if origin(i,j) ~= ReImage(i,j)
+            i,j
+            break;
+        end
+    end
+end
 imwrite(embed_image,"room.png","png");
 imwrite(EnImage,"cipher.png",'png');
 imwrite(AjImage,"result.png",'png');
@@ -52,30 +60,30 @@ imwrite(ReImage,'recover.png','png');
 %         end
 %     end
 % end
-% difference = sum/(m*n)
-result1 = origin;
-result2 = origin;
-% result3 = origin;
-for i = 1 : m
-        for j = 1 : n
-            x = (i-1)*blocksize+1;
-            y = (j-1)*blocksize+1;
-            sub1(1:blocksize,1:blocksize) = AjImage(x:x+blocksize-1,y:y+blocksize-1);
-            sub2(1:blocksize,1:blocksize) = origin(x:x+blocksize-1,y:y+blocksize-1);
-            sub3(1:blocksize,1:blocksize) = EnImage(x:x+blocksize-1,y:y+blocksize-1);
-            value1 = mean2(sub1);
-            value2 = mean2(sub2);
-            value3 = mean2(sub3);
-            for p = x : x+blocksize-1
-                for q = y : y+blocksize-1
-                    result1(p,q) = value1;
-                    result2(p,q) = value2;
-%                     result3(p,q) = value3;
-                end
-            end
-        end 
-    end
-imwrite(result1,"thumbnail.png",'png');
-imwrite(result2,"origin-th.png",'png');
+% % difference = sum/(m*n)
+% result1 = origin;
+% result2 = origin;
+% % result3 = origin;
+% for i = 1 : m
+%         for j = 1 : n
+%             x = (i-1)*blocksize+1;
+%             y = (j-1)*blocksize+1;
+%             sub1(1:blocksize,1:blocksize) = AjImage(x:x+blocksize-1,y:y+blocksize-1);
+%             sub2(1:blocksize,1:blocksize) = origin(x:x+blocksize-1,y:y+blocksize-1);
+%             sub3(1:blocksize,1:blocksize) = EnImage(x:x+blocksize-1,y:y+blocksize-1);
+%             value1 = mean2(sub1);
+%             value2 = mean2(sub2);
+%             value3 = mean2(sub3);
+%             for p = x : x+blocksize-1
+%                 for q = y : y+blocksize-1
+%                     result1(p,q) = value1;
+%                     result2(p,q) = value2;
+% %                     result3(p,q) = value3;
+%                 end
+%             end
+%         end 
+%     end
+% imwrite(result1,"thumbnail.png",'png');
+% imwrite(result2,"origin-th.png",'png');
 % imwrite(result3,"cipher-th.png","png");
 

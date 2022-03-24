@@ -4,7 +4,7 @@
 %  a=[20.45,30.69]; %a数据y值
 %  b=[13.42,17.15,18.67]; %b数据y值
 %  c=[9.93,11.79,12.58,13.01];
-%  plot(x1,a,'-*b',x2,b,'-or',x3,c,'-xg');
+%  plot(x1,a,'-*b',x2,b,'-or',x3,c,'-xg','LineWidth',1.3);
 %  
 % axis([0,5,5,35])  %确定x轴与y轴框图大小
 % 
@@ -17,15 +17,15 @@
 % new_xlb=[xlb,per];%把百分号加到原标注的后面，即两个列字符串拼起来
 % set(gca,'yticklabel',new_xlb); %将新的标注设为当前x轴的标注
 % 
-% legend('blocksize:16x16','blocksize:32x32','blocksize:64x64');   %右上角标注
+% legend('Blocksize:16x16','Blocksize:32x32','Blocksize:64x64');   %右上角标注
 % xlabel('MSB')  %x轴坐标描述
 % ylabel('Similarity rate') %y轴坐标描述
 
-
+% 
 %  x=1:1:8;
 %  a=[92,88,80,76,69,63,60,58];
 %  b=[98,98,95,95,95,89,89,89];
-%  plot(x,b,'-or',x,a,'-*b','LineWidth',1.25);
+%  plot(x,b,'-or',x,a,'-*b','LineWidth',1.3);
 % 
 % axis([0,9,50,100])  %确定x轴与y轴框图大小
 % 
@@ -39,8 +39,8 @@
 % new_xlb=[xlb,per];%把百分号加到原标注的后面，即两个列字符串拼起来
 % set(gca,'yticklabel',new_xlb); %将新的标注设为当前x轴的标注
 % xlabel('(Block size, \rho)')  %x轴坐标描述
-% ylabel('Success Ratio') %y轴坐标描述
-% legend('origin','PRA-TPE');
+% ylabel('Success ratio') %y轴坐标描述
+% legend('Origin','PRA-TPE');
 % set(gcf,'position',[50,50,750,500])
 
 %  x=1:1:8;
@@ -50,14 +50,14 @@
 %  d=[4.3275,4.3275,4.3275,4.3275,4.3275,4.3275,4.3275,4.3275];
 %  e=[4.0256,4.0256,4.0256,4.0256,4.0256,4.0256,4.0256,4.0256];
 %  f=[3.8694,3.8694,3.8694,3.8694,3.8694,3.8694,3.8694,3.8694];
-%  plot(x,a,'-*b',x,b,'-ob',x,c,'-xb',x,d,'-*r',x,e,'-or',x,f,'-xr','LineWidth',1.25);
+%  plot(x,a,'-*b',x,b,'-ob',x,c,'-xb',x,d,'-*r',x,e,'-or',x,f,'-xr','LineWidth',1.3);
 %  
 % axis([0,9,3.625,4.625])  %确定x轴与y轴框图大小
 % 
 % set(gca,'xticklabel',{'','(16x16, 1)','(16x16, 2)','(32x32, 1)','(32x32, 2)','(32x32, 3)','(64x64, 1)','(64x64, 2)','(64x64, 3)',''})
 % set(gca,'YTick',[3.625:0.125:4.625]) %y轴范围0-700，间隔100
 % 
-% legend('full-body by PRA-TPE','bust by PRA-TPE','avatar by PRA-TPE','full-body by Stream Cipher','bust by Stream Cipher','avatar by Stream Cipher');   %右上角标注
+% legend('Full-body by PRA-TPE','Bust by PRA-TPE','Avatar by PRA-TPE','Full-body by stream cipher','Bust by stream cipher','Avatar by stream cipher');   %右上角标注
 % xlabel('(Block size, \rho)')  %x轴坐标描述
 % ylabel('Ratio') %y轴坐标描述
 % set(gcf,'position',[50,50,750,500])
@@ -75,30 +75,30 @@
 % set(gca,'xticklabel',{'','8','16','32','64','128','256','512','1024',''})
 % set(gca,'YTick',[290000:20000:520000]) %y轴范围0-700，间隔100
 % 
-% legend('original','PRA-TPE of 16x16','PRA-TPE of 32x32','PRA-TPE of 64x64','location','Best');   %右上角标注
+% legend('Original','PRA-TPE of 16x16','PRA-TPE of 32x32','PRA-TPE of 64x64','location','Best');   %右上角标注
 % xlabel('blocksize')  %x轴坐标描述
 % ylabel('capacity') %y轴坐标描述
 % set(gcf,'position',[50,50,750,500])
 
+% 
+ x=[8,16,32,64,128];
+ a=[0.6190,0.8026,0.8531,0.8843,0.9141]; %a数据y值
+ b=[0.5990,0.7761,0.8301,0.8645,0.8981]; %b数据y值
+ c=[0.5312,0.7475,0.8177,0.8551,0.8908];
+ d=[0.5459,0.7370,0.8045,0.8434,0.8812];
+ e=[0.5315,0.7123,0.7921,0.8380,0.8769];
+ f=[0.5409,0.7147,0.7866,0.8314,0.8715];
+ plot(x,a,'-*r',x,b,'-og',x,c,'-xB',x,d,'-*k',x,e,'-om',x,f,'-xC','LineWidth',1.3);
+ 
+axis([0,150,0.5,1])  %确定x轴与y轴框图大小
 
-%  x=[8,16,32,64,128];
-%  a=[0.6190,0.8026,0.8531,0.8843,0.9141]; %a数据y值
-%  b=[0.5990,0.7761,0.8301,0.8645,0.8981]; %b数据y值
-%  c=[0.5312,0.7475,0.8177,0.8551,0.8908];
-%  d=[0.5459,0.7370,0.8045,0.8434,0.8812];
-%  e=[0.5315,0.7123,0.7921,0.8380,0.8769];
-%  f=[0.5409,0.7147,0.7866,0.8314,0.8715];
-%  plot(x,a,'-*r',x,b,'-og',x,c,'-xy',x,d,'-*k',x,e,'-om',x,f,'-xb','LineWidth',0.7);
-%  
-% axis([0,150,0.5,1])  %确定x轴与y轴框图大小
-% 
-% set(gca,'XTick',[8,16,32,64,128]);
-% set(gca,'YTick',[0.5:0.1:1]) %y轴范围0-700，间隔100
-% 
-% legend('block size: 16x16, \rho=2','block size: 16x16, \rho=1','block size: 32x32, \rho=2','block size: 32x32, \rho=1','block size: 64x64, \rho=2','block size: 64x64, \rho=1','location','Best');   %右上角标注
-% xlabel('(Block wide of thumbnail)')  %x轴坐标描述
-% ylabel('SSIM') %y轴坐标描述
-% set(gcf,'position',[50,50,750,500])
+set(gca,'XTick',[8,16,32,64,128]);
+set(gca,'YTick',[0.5:0.1:1]) %y轴范围0-700，间隔100
+
+legend('Block size=16x16, \rho=2','Block size=16x16, \rho=1','Block size=32x32, \rho=2','Block size=32x32, \rho=1','Block size=64x64, \rho=2','Block size=64x64, \rho=1','location','Best');   %右上角标注
+xlabel('Block wide of thumbnail')  %x轴坐标描述
+ylabel('SSIM') %y轴坐标描述
+set(gcf,'position',[50,50,750,500])
 
 
 %  x=[1,2,4,8,16,32,64,128];
@@ -108,7 +108,7 @@
 %  d=[8.0881,10.4019,11.3894,11.7933,12.0690,12.3908,12.7989,13.5480];
 %  e=[7.8722,10.1552,11.1252,11.5238,11.7816,12.1069,12.5984,13.3428];
 %  f=[7.8833,10.1094,11.0138,11.3652,11.5905,11.8846,12.3493,13.0897];
-%  plot(x,a,'-*r',x,b,'-og',x,c,'-xy',x,d,'-*k',x,e,'-om',x,f,'-xb','LineWidth',0.7);
+%  plot(x,a,'-*r',x,b,'-og',x,c,'-xb',x,d,'-*k',x,e,'-om',x,f,'-xc','LineWidth',0.7);
 %  
 % axis([0,150,5,17])  %确定x轴与y轴框图大小
 % 
@@ -125,7 +125,7 @@
 %  b=[99.5,99.5,97.2,97.2,1.0,1.0,0.7,0.7];
 %  c=[2.8,0,0,0,0,0,0,0];
 %  d=[88.7,85.1,60.6,24.6,0.5,0.4,0.1,0];
-%  plot(x,a,'-or',x,b,'-*b',x,d,'-xy',x,c,'-*g','LineWidth',0.9);
+%  plot(x,a,'-or',x,b,'-*b',x,d,'-xm',x,c,'-*g','LineWidth',1.3);
 % 
 % axis([0,9,0,100])  %确定x轴与y轴框图大小
 % 
@@ -139,20 +139,61 @@
 % new_xlb=[xlb,per];%把百分号加到原标注的后面，即两个列字符串拼起来
 % set(gca,'yticklabel',new_xlb); %将新的标注设为当前x轴的标注
 % xlabel('(Block size, \rho)')  %x轴坐标描述
-% ylabel('Success Ratio') %y轴坐标描述
-% legend('original image','original thumbnail','cipher thumbnail','cipher image');
+% ylabel('Success ratio') %y轴坐标描述
+% legend('Original image','Original thumbnail','Adjusted thumbnail','Adjusted image');
 % set(gcf,'position',[50,50,750,500])
 
- x=1:1:8;
- a=[55.85,54.88,55.26,54.37,0.98,0.49,0.20,0];
- b=[7.78,1.65,0.04,0.02,0,0,0,0];
- plot(x,a,'-or',x,b,'-*b','LineWidth',0.9);
+%  x=1:1:8;
+%  a=[55.85,54.88,55.26,54.37,0.98,0.49,0.20,0];
+%  b=[7.78,1.65,0.04,0.02,0,0,0,0];
+%  plot(x,a,'-or',x,b,'-*b','LineWidth',1.3);
+% 
+% axis([0,9,0,60])  %确定x轴与y轴框图大小
+% 
+% set(gca,'xticklabel',{'','(16x16, 2)','(16x16, 1)','(32x32, 2)','(32x32, 1)','(64x64, 2)','(64x64, 1)','(128x128,2)','(128x128,1)',''})
+% set(gca,'yticklabel',[0:10:60]) %y轴范围0-700，间隔100
+% xlabel('(Block size, \rho)')  %x轴坐标描述
+% ylabel('Compare score') %y轴坐标描述
+% legend('Original image vs. cipher image','Original thumbnail vs. cipher thumbnail');
+% set(gcf,'position',[50,50,750,500])
 
-axis([0,9,0,60])  %确定x轴与y轴框图大小
+% % IFC
+%  x=[4,8,16,32,64,128];
+%  a=[2.1798,0.7872,0.2944,0.1508,0.0948,0.0489]; %a数据y值
+%  b=[0.1442,0.1531,0.1848,0.1310,0.0830,0.0431]; %b数据y值
+%  c=[0.1367,0.1488,0.1766,0.1283,0.0845,0.0432];
+%  d=[0.1321,0.1511,0.1513,0.1274,0.0816,0.0415];
+%  e=[0.1267,0.1438,0.1532,0.1237,0.0802,0.0392];
+%  f=[0.1254,0.1408,0.1499,0.1231,0.0799,0.0384];
+%  plot(x,a,'-*r',x,b,'-og',x,c,'-xb',x,d,'-*k',x,e,'-om',x,f,'-xc','LineWidth',1.3);
+%  
+% axis([0,150,0.03,0.3])  %确定x轴与y轴框图大小
+% 
+% set(gca,'XTick',[4,8,16,32,64,128]);
+% set(gca,'YTick',[0.03:0.02:0.3]) %y轴范围0-700，间隔100
+% 
+% legend('Origin','Block size=16x16, \rho=2','Block size=16x16, \rho=1','Block size=32x32, \rho=2','Block size=32x32, \rho=1','Block size=64x64, \rho=2','Block size=64x64, \rho=1','location','Best');   %右上角标注
+% xlabel('Block wide of thumbnail')  %x轴坐标描述
+% ylabel('IFC') %y轴坐标描述
+% set(gcf,'position',[50,50,750,500])
 
-set(gca,'xticklabel',{'','(16x16, 2)','(16x16, 1)','(32x32, 2)','(32x32, 1)','(64x64, 2)','(64x64, 1)','(128x128,2)','(128x128,1)',''})
-set(gca,'yticklabel',[0:5:65]) %y轴范围0-700，间隔100
-xlabel('(Block size, \rho)')  %x轴坐标描述
-ylabel('compare score') %y轴坐标描述
-legend('original image vs. cipher image','original thumbnail vs. cipher thumbnail');
-set(gcf,'position',[50,50,750,500])
+%
+%LPIPS
+%  x=[8,16,32,64,128];
+%  a=[0.5156,0.3914,0.2769,0.1980,0.1440]; %a数据y值
+%  b=[0.5250,0.4204,0.3051,0.2220,0.1663]; %b数据y值
+%  c=[0.5418,0.4530,0.3294,0.2395,0.1809];
+%  d=[0.5409,0.4619,0.3473,0.2610,0.2020];
+%  e=[0.5421,0.4585,0.3698,0.2810,0.2134];
+%  f=[0.5424,0.4691,0.3816,0.2941,0.2319];
+%  plot(x,a,'-*r',x,b,'-og',x,c,'-xB',x,d,'-*k',x,e,'-om',x,f,'-xC','LineWidth',1.3);
+%  
+% axis([0,150,0.1,0.57])  %确定x轴与y轴框图大小
+% 
+% set(gca,'XTick',[8,16,32,64,128]);
+% set(gca,'YTick',[0.10:0.1:0.55]) %y轴范围0-700，间隔100
+% 
+% legend('Block size=16x16, \rho=2','Block size=16x16, \rho=1','Block size=32x32, \rho=2','Block size=32x32, \rho=1','Block size=64x64, \rho=2','Block size=64x64, \rho=1','location','Best');   %右上角标注
+% xlabel('Block wide of thumbnail')  %x轴坐标描述
+% ylabel('LPIPS') %y轴坐标描述
+% set(gcf,'position',[50,50,750,500])

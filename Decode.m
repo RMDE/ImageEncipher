@@ -43,7 +43,7 @@ if MSB == 3
 end
 [~,n] = size(bits);
 if i<=p
-    res(j:j+p-i) = data(i:p);
+    res(j:j+p-i) = data(i:p); 
 end
 [~,len] = size(res);
 res(len+1:len+n) = bits(1:n);

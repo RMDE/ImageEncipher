@@ -7,5 +7,6 @@ test.*
 *.pdf
 *.png
 *.tmp
+*.txt
 !original.png
 setting.code-workspace

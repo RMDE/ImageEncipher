@@ -1,5 +1,5 @@
 
-img = imread("thumbnail.png","png");
+img = imread("flower.png","png");
 cal = zeros(3,256);
 [M,N,C] = size(img);
 for cha = 1 : C

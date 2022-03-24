@@ -3,38 +3,11 @@
 %x,y: the start location of block
 %MSB: the number of every bit in adjustment area used for adjustment
 %count: the max number of elements in EN1
-function [data,SubImage,capacity] = Embedding( origin, blocksize, x, y, MSB, count)
+function [data,SubImage,capacity] = Embedding( origin, blocksize, x, y, MSB, count, bits)
 SubImage=origin;
 capacity = 0;
 %select the highest MSB bits of each pixel in adjustment area
-bits = []; %store the highest MSB bits of pixels in adjustment area
-bit = [];
-for i = x : x+blocksize-1
-    bit = Get(bit,origin(i,y),MSB); 
-end
-for i = x : x+blocksize-1
-    bit = Get(bit,origin(i,y+blocksize-1),MSB);
-end
-for j = y+1 : y+blocksize-2
-    bit = Get(bit,origin(x,j),MSB);
-end
-for j = y+1 : y+blocksize-2
-    bit = Get(bit,origin(x+blocksize-1,j),MSB);
-end
-if MSB == 1
-    bits=bit;
-end
-if MSB == 2
-    a = 4*blocksize-4;
-    bits(1:a) = bit(1:2:2*a-1);
-    bits(a+1:2*a) = bit(2:2:2*a);
-end
-if MSB == 3
-    a = 4*blocksize-4;
-    bits(1:a) = bit(1:3:3*a-2);
-    bits(a+1:2*a) = bit(2:3:3*a-1);
-    bits(2*a+1:3*a) = bit(3:3:3*a);
-end
+
 %1-divide all pixel into different sets: EZ & EN1 & EN2 & CN & NC
 %2-generate the lacation-map MAP
 %3-store the lowest bit of each pixel in EN2 and CN  
@@ -104,9 +77,7 @@ MAP = Encode(MAP);
 data(1:len1) = MAP(1:len1);
 [~,len2] = size(LSB);
 data(len1+1:len1+len2) = LSB(1:len2);
-bits = Encode(bits);
-[~,len3] = size(bits);
-data(len1+len2+1:len1+len2+len3) = bits(1:len3);
+
 no=1; %means the index of data to embed
 
 for i = x+1 : 1 : x+blocksize-2
